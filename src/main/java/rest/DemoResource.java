@@ -37,7 +37,7 @@ import utils.SwappiData;
 /**
  * @author lam@cphbusiness.dk
  */
-@Path("exam") 
+@Path("exam")
 public class DemoResource {
 
     @Context
@@ -84,31 +84,28 @@ public class DemoResource {
         return "{\"msg\": \"Hello to (admin) User: " + thisuser + "\"}";
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("apis")
-//    public String getFromAPIs() {
-//        return swappiFutureCalls();
-//    }
-//
-//    public static String swappiFutureCalls() {
-//        ForkJoinPool executor = new ForkJoinPool(25,
-//                ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-//                null, false);
-//        List<Future<String>> futureArrayList = new ArrayList();
-//        for (int i = 1; i < 6; i++) {
-//            Callable<String> worker = new SwappiData(i);
-//            futureArrayList.add(executor.submit(worker));
-//        }
-//        List<String> res = new ArrayList();
-//        futureArrayList.parallelStream().forEach(future -> {
-//            try {
-//                String getFutureStr = future.get(5, TimeUnit.SECONDS);
-//                res.add(getFutureStr);
-//            } catch (InterruptedException | ExecutionException | TimeoutException ex) {
-//
-//            }
-//        });
-//        return res.toString();
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("apis")
+    public String getFromAPIs() {
+        return futureCalls();
+    }
+
+    public static String futureCalls() {
+        ExecutorService es = Executors.newCachedThreadPool();
+        List<Future<String>> futures = new ArrayList();
+        for (int i = 1; i < 6; i++) {
+            Callable<String> worker = new SwappiData(i);
+            futures.add(es.submit(worker));
+        }
+        List<String> res = new ArrayList();
+        futures.forEach((future) -> {
+            try {
+                res.add(future.get(5, TimeUnit.MINUTES));
+            } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+
+            }
+        });
+        return res.toString();
+    }
 }
