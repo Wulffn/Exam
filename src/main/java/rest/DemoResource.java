@@ -37,7 +37,7 @@ import utils.SwappiData;
 /**
  * @author lam@cphbusiness.dk
  */
-@Path("exam")
+@Path("exam") 
 public class DemoResource {
 
     @Context
