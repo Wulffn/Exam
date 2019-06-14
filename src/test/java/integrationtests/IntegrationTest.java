@@ -79,7 +79,7 @@ public class IntegrationTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/api/info").then()
+                .get("/api/exam").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello anonymous"));
     }
@@ -92,7 +92,7 @@ public class IntegrationTest {
                 .accept(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/api/info/admin").then()
+                .get("/api/exam/admin").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to (admin) User: admin"));
     }
@@ -104,7 +104,7 @@ public class IntegrationTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/api/info/user").then()
+                .get("/api/exam/user").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to User: user"));
     }
@@ -117,7 +117,7 @@ public class IntegrationTest {
                 .accept(ContentType.JSON)
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/api/info/admin").then()
+                .get("/api/exam/admin").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to (admin) User: user_admin"));
     }
@@ -129,7 +129,7 @@ public class IntegrationTest {
                 .contentType("application/json")
                 .header("x-access-token", securityToken)
                 .when()
-                .get("/api/info/user").then()
+                .get("/api/exam/user").then()
                 .statusCode(200)
                 .body("msg", equalTo("Hello to User: user_admin"));
     }
@@ -140,7 +140,7 @@ public class IntegrationTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/api/info/user").then()
+                .get("/api/exam/user").then()
                 .statusCode(403);
     }
 
@@ -150,7 +150,7 @@ public class IntegrationTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/api/info/user").then()
+                .get("/api/exam/user").then()
                 .statusCode(403);
     }
 
