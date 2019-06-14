@@ -64,7 +64,6 @@ public class DemoResource {
         } finally {
             em.close();
         }
-
     }
 
     @GET
